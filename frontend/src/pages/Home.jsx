@@ -9,11 +9,13 @@ const moki = '0xc944eE998b6793Fa7511605A0577e245B1EEBc5a'
 
 const Home = () => {
   const { account, } = useConnectedAccount();
-  const balance = useErc20BalanceOf(moki, account,2); // dai address
-  const tokenUser = useErc20BalanceOf(Token.address, account,2); // exchange token address
+  const balance = useErc20BalanceOf(moki, account, 2); // dai address
+  const tokenUser = useErc20BalanceOf(Token.address, account, 2); // exchange token address
   const [errorMessage, setErrorMessage] = useState('')
   const [inputValue, setInputValue] = useState("");
   const [inputAddress, setInputAddress] = useState('')
+  const [owner, setOwner] = useState("");
+  const [minter, setMinter] = useState('')
   // const { web3, }  = useConnectedWeb3()
 
   const onChangeHandler = (e) => {
@@ -31,10 +33,20 @@ const Home = () => {
     setInputValue(newValue);
   }
 
+  const onChangeOwner = (e) => {
+    let newValue = e.target.value;
+    setOwner(newValue);
+  }
+
+  const onChangeMinter = (e) => {
+    let newValue = e.target.value;
+    setMinter(newValue);
+  }
+
   const onChangeAddress = (e) => {
     let newValue = e.target.value;
 
-   setInputAddress(newValue);
+    setInputAddress(newValue);
   }
 
   return (
@@ -60,7 +72,7 @@ const Home = () => {
               <br />
             </div>
             <div>
-              Empfänger: 
+              Empfänger:
             </div>
             <div>
               <input placeholder='0x1234...' onChange={onChangeAddress} value={inputAddress} className='input-std ml-1' />
@@ -79,6 +91,52 @@ const Home = () => {
               />
             </center>
           </div>
+
+          <div style={{ width: '100%', padding: '20px', marginTop: '50px' }}>
+            <div>
+              Add new minter (only owner):
+            </div>
+            <div>
+              <input placeholder='0x1234...' onChange={onChangeMinter} value={minter} className='input-std ml-1' />
+            </div>
+          </div>
+          <div style={{ width: '100%', padding: '20px', marginTop: '50px' }}>
+            <center>
+              <TransactionButton
+                address={moki}
+                abi={Token}
+                method={'mint'}
+                args={[minter, true]}
+                confirmations={1} //optional
+                language={'de'} //optional
+                text={'Set minter'}
+              />
+            </center>
+          </div>
+
+          <div style={{ width: '100%', padding: '20px', marginTop: '50px' }}>
+            <div>
+              Transfer Ownership:
+            </div>
+            <div>
+              <input placeholder='0x1234...' onChange={onChangeOwner} value={owner} className='input-std ml-1' />
+            </div>
+          </div>
+          <div style={{ width: '100%', padding: '20px', marginTop: '50px' }}>
+            <center>
+              <TransactionButton
+                address={moki}
+                abi={Token}
+                method={'transferOwnership'}
+                args={[owner]}
+                confirmations={1} //optional
+                language={'de'} //optional
+                text={'Set owner'}
+              />
+            </center>
+          </div>
+
+
         </Container>
         {/* {web3} */}
       </Container>
