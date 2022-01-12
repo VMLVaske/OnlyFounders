@@ -78,7 +78,7 @@ const Home = () => {
               <input placeholder='0x1234...' onChange={onChangeAddress} value={inputAddress} className='input-std ml-1' />
             </div>
           </div>
-          <div style={{ width: '100%', padding: '20px', marginTop: '50px' }}>
+          <div style={{ width: '100%', padding: '20px'}}>
             <center>
               <TransactionButton
                 address={moki}
@@ -100,13 +100,13 @@ const Home = () => {
               <input placeholder='0x1234...' onChange={onChangeMinter} value={minter} className='input-std ml-1' />
             </div>
           </div>
-          <div style={{ width: '100%', padding: '20px', marginTop: '50px' }}>
+          <div style={{ width: '100%', padding: '20px', }}>
             <center>
               <TransactionButton
                 address={moki}
                 abi={Token}
-                method={'mint'}
-                args={[minter, true]}
+                method={'setMinter'}
+                args={[minter, "true"]}
                 confirmations={1} //optional
                 language={'de'} //optional
                 text={'Set minter'}
@@ -122,7 +122,7 @@ const Home = () => {
               <input placeholder='0x1234...' onChange={onChangeOwner} value={owner} className='input-std ml-1' />
             </div>
           </div>
-          <div style={{ width: '100%', padding: '20px', marginTop: '50px' }}>
+          <div style={{ width: '100%', padding: '20px' }}>
             <center>
               <TransactionButton
                 address={moki}
