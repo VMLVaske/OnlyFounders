@@ -4,12 +4,12 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 
 const wrapperConfig = {
-  infura: 'b875684882204055bac61ec57a3ea1a1',
-  network: 4,
-  rpc: 'https://rinkeby.infura.io/v3/b875684882204055bac61ec57a3ea1a1',
+  infura: '',
+  network: 80001,
+  rpc: 'https://polygon-mumbai.g.alchemy.com/v2/0NNPYrUw2G92VSsJG-bezGptnY5g4Dlt',
   blockexplorer: {
-    url: 'https://rinkeby.etherscan.io',
-    name: 'etherscan'
+    url: 'https://mumbai.polygonscan.com/',
+    name: 'mumbaiscan'
   },
 }
 
@@ -21,7 +21,7 @@ function App() {
         <Router>
           <Switch>
 
-            <Route exact path='/projects/moki/'>
+            <Route exact path='/'>
               <Home />
             </Route>
 

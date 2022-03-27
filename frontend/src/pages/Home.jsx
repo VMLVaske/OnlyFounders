@@ -5,11 +5,11 @@ import Token from '../data/contracts/Token.json'
 import { fromWeiToFixed, toWei } from '../web3/utils/func';
 import { TransactionButton, ConnectButton } from '../web3/components';
 let regex = /^(?:[0-9]\d+|\d)(?:\.\d{0,2})?$/;
-const moki = '0xc944eE998b6793Fa7511605A0577e245B1EEBc5a'
+const onlyFounders = '0xc944eE998b6793Fa7511605A0577e245B1EEBc5a'
 
 const Home = () => {
   const { account, } = useConnectedAccount();
-  const balance = useErc20BalanceOf(moki, account, 2); // dai address
+  const balance = useErc20BalanceOf(onlyFounders, account, 2); // dai address
   const tokenUser = useErc20BalanceOf(Token.address, account, 2); // exchange token address
   const [errorMessage, setErrorMessage] = useState('')
   const [inputValue, setInputValue] = useState("");
@@ -49,98 +49,107 @@ const Home = () => {
     setInputAddress(newValue);
   }
 
-  return (
+  return ( 
     <>
-      <Container fluid style={{ padding: '20px' }}>
-        <Row style={{ width: '100%' }}>
-          <Col style={{ maxWidth: '300px', marginRight: '50px' }}>
-            <ConnectButton language='de' />
-          </Col>
-        </Row>
-        <Container style={{ width: '100%', padding: '20px' }}>
-          <div style={{ width: '100%', padding: '20px', marginTop: '50px' }}>
-            <div>
-              Wert in MOKI:
-            </div>
-            <div>
-              <input placeholder='0.00' onChange={onChangeHandler} value={inputValue} className='input-std ml-1' />
-            </div>
-            <div>
-              {errorMessage}
-            </div>
-            <div>
-              <br />
-            </div>
-            <div>
-              Empfänger:
-            </div>
-            <div>
-              <input placeholder='0x1234...' onChange={onChangeAddress} value={inputAddress} className='input-std ml-1' />
-            </div>
+    <Container fluid style={{ padding: '20px' }}>
+      <Row style={{ width: '100%' }}>
+        <Col style={{ maxWidth: '300px', marginRight: '50px' }}>
+          <ConnectButton language='de' />
+        </Col>
+      </Row>
+      <Container style={{ width: '100%', padding: '20px' }}>
+        <div style={{ width: '100%', padding: '20px', marginTop: '50px' }}>
+        <div>
+            Contract Address 
           </div>
-          <div style={{ width: '100%', padding: '20px'}}>
-            <center>
-              <TransactionButton
-                address={moki}
-                abi={Token}
-                method={'mint'}
-                args={[inputAddress, toWei(inputValue)]}
-                confirmations={1} //optional
-                language={'de'} //optional
-                text={'Mint'}
-              />
-            </center>
+          <div>
+            <input placeholder='0.x1234...' onChange={onchangeAddress} value={inputValue} className='input-std ml-1' />
           </div>
+          <div>
+            {errorMessage}
+          </div>
+          <div>
+            Wert:
+          </div>
+          <div>
+            <input placeholder='0.00' onChange={onChangeHandler} value={inputValue} className='input-std ml-1' />
+          </div>
+          <div>
+            {errorMessage}
+          </div>
+          <div>
+            <br />
+          </div>
+          <div>
+            Empfänger:
+          </div>
+          <div>
+            <input placeholder='0x1234...' onChange={onChangeAddress} value={inputAddress} className='input-std ml-1' />
+          </div>
+        </div>
+        <div style={{ width: '100%', padding: '20px'}}>
+          <center>
+            <TransactionButton
+              address={onlyFounders}
+              abi={Token}
+              method={'mint'}
+              args={[inputAddress, toWei(inputValue)]}
+              confirmations={1} //optional
+              language={'de'} //optional
+              text={'Mint'}
+            />
+          </center>
+        </div>
 
-          <div style={{ width: '100%', padding: '20px', marginTop: '50px' }}>
-            <div>
-              Add new minter (only owner):
-            </div>
-            <div>
-              <input placeholder='0x1234...' onChange={onChangeMinter} value={minter} className='input-std ml-1' />
-            </div>
+        <div style={{ width: '100%', padding: '20px', marginTop: '50px' }}>
+          <div>
+            Add new minter (only owner):
           </div>
-          <div style={{ width: '100%', padding: '20px', }}>
-            <center>
-              <TransactionButton
-                address={moki}
-                abi={Token}
-                method={'setMinter'}
-                args={[minter, "true"]}
-                confirmations={1} //optional
-                language={'de'} //optional
-                text={'Set minter'}
-              />
-            </center>
+          <div>
+            <input placeholder='0x1234...' onChange={onChangeMinter} value={minter} className='input-std ml-1' />
           </div>
+        </div>
+        <div style={{ width: '100%', padding: '20px', }}>
+          <center>
+            <TransactionButton
+              address={onlyFounders}
+              abi={Token}
+              method={'setMinter'}
+              args={[minter, "true"]}
+              confirmations={1} //optional
+              language={'de'} //optional
+              text={'Set minter'}
+            />
+          </center>
+        </div>
 
-          <div style={{ width: '100%', padding: '20px', marginTop: '50px' }}>
-            <div>
-              Transfer Ownership:
-            </div>
-            <div>
-              <input placeholder='0x1234...' onChange={onChangeOwner} value={owner} className='input-std ml-1' />
-            </div>
+        <div style={{ width: '100%', padding: '20px', marginTop: '50px' }}>
+          <div>
+            Transfer Ownership:
           </div>
-          <div style={{ width: '100%', padding: '20px' }}>
-            <center>
-              <TransactionButton
-                address={moki}
-                abi={Token}
-                method={'transferOwnership'}
-                args={[owner]}
-                confirmations={1} //optional
-                language={'de'} //optional
-                text={'Set owner'}
-              />
-            </center>
+          <div>
+            <input placeholder='0x1234...' onChange={onChangeOwner} value={owner} className='input-std ml-1' />
           </div>
+        </div>
+        <div style={{ width: '100%', padding: '20px' }}>
+          <center>
+            <TransactionButton
+              address={onlyFounders}
+              abi={Token}
+              method={'transferOwnership'}
+              args={[owner]}
+              confirmations={1} //optional
+              language={'de'} //optional
+              text={'Set owner'}
+            />
+          </center>
+        </div>
 
 
-        </Container>
-        {/* {web3} */}
       </Container>
-    </>
+      {/* {web3} */}
+    </Container>
+  </>
   );
 }
 
